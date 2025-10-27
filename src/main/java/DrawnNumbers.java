@@ -2,27 +2,33 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-/**
- * Manages the 20 randomly drawn numbers in a Keno game
- */
+//Jerrick Li, jli326, UIN: 653147894
+
+//holds the 20 nums drawn each round (winning nums)
+//also, has helper to gen a new set using randoms
 public class DrawnNumbers {
     private Set<Integer> numbers;
-    
-    // TODO: Add constructor
-    
-    /**
-     * Get the drawn numbers
-     */
-    public Set<Integer> getDrawNums() {
-        // TODO: Implement
-        return null;
+
+    //constructor, store given numbers (assumes valid set)
+    public DrawnNumbers(Set<Integer> numbers) {
+        this.numbers = new HashSet<>(numbers);
     }
-    
-    /**
-     * Generate 20 random unique numbers between 1 and 80
-     */
+
+    //getter for the drawn numbers
+    //returns copy to protect the class
+    public Set<Integer> getDrawNums() {
+        return new HashSet<>(numbers);
+    }
+
+    //static helper
+    //makes a new DrawnNumbers with 20 unique random nums (1 to 80)
     public static DrawnNumbers genRandNums(Random rng) {
-        // TODO: Implement - generate 20 unique random numbers
-        return null;
+        Set<Integer> pickedNums = new HashSet<>();
+
+        while (pickedNums.size() < 20) {
+            int n = rng.nextInt(80) + 1; 
+            pickedNums.add(n); 
+        }
+        return new DrawnNumbers(pickedNums);
     }
 }

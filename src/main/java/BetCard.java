@@ -2,69 +2,89 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-/**
- * Represents a player's bet card with their selected numbers
- */
+//Jerrick Li, jli326, UIN: 653147894
+
+//represents player's bet card w/ selected #s
+//handles player picking #s for keno game
+
 public class BetCard {
     private int spotCount;
     private Set<Integer> selectedNumbers;
     
+    //constructor, makes new betcard
     public BetCard(int spotCount) {
-        // TODO: Validate spotCount is 1, 4, 8, or 10
+        if (spotCount != 1 && spotCount != 4 && spotCount != 8 && spotCount != 10) { //check for valid spotcount
+            throw new IllegalArgumentException("Spot count must be 1, 4, 8, or 10");
+        }
         this.spotCount = spotCount;
         this.selectedNumbers = new HashSet<>();
     }
     
-    /**
-     * Select a number (1-80)
-     */
+    //player selects valid num, 1 to 80
+    //return: true if selected, false if can't be selected
     public boolean select(int n) {
-        // TODO: Implement - validate and add number
-        return false;
+        if (n < 1 || n > 80) {
+            return false;
+        }
+        
+        if (selectedNumbers.contains(n)) {
+            return false;
+        }
+    
+        if (selectedNumbers.size() >= spotCount) {
+            return false;
+        }
+
+        selectedNumbers.add(n);
+        return true;
     }
     
-    /**
-     * Unselect a number
-     */
+    //deselect number
+    //return: true if removed, false if not there 
     public boolean unselect(int n) {
-        // TODO: Implement
+        // Check if the number is in the set
+        if (selectedNumbers.contains(n)) {
+            selectedNumbers.remove(n);
+            return true;
+        }
         return false;
     }
     
-    /**
-     * Clear all selected numbers
-     */
+    //clear all selected numbers
     public void clear() {
-        // TODO: Implement
+        selectedNumbers.clear();
     }
     
-    /**
-     * Check if the bet card is complete
-     */
+    //checks if betcard is filled 
     public boolean complete() {
-        // TODO: Implement
-        return false;
+        if (selectedNumbers.size() == spotCount) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
-    /**
-     * Get the selected numbers
-     */
+    //get the selected numbers
     public Set<Integer> getSelected() {
-        // TODO: Implement
-        return null;
+        Set<Integer> copy = new HashSet<>(); //creating a new hashset so the original one can't be changed
+        for (Integer num : selectedNumbers) {
+            copy.add(num);
+        }
+        return copy;
     }
     
-    /**
-     * Get the spot count
-     */
+    //gets spotcount
     public int getSpotCount() {
         return spotCount;
     }
     
-    /**
-     * Automatically pick random numbers
-     */
+    //auto picks random numbers for the player
     public void autoPicking(Random rng) {
-        // TODO: Implement - randomly select spotCount numbers
+        clear();
+        
+        while (selectedNumbers.size() < spotCount) {
+            int randomNum = rng.nextInt(80) + 1;
+            selectedNumbers.add(randomNum);
+        }
     }
 }

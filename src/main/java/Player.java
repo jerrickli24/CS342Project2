@@ -1,44 +1,47 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Tracks player's total winnings and past results
- */
+//Jerrick Li, jli326, UIN: 653147894
+
+//tracks player winnings and history
 public class Player {
     private int totalWinnings;
     private List<RoundResult> pastWinnings;
-    
+
     public Player() {
-        // TODO: Initialize
+        //base 0
+        totalWinnings = 0;
+        pastWinnings = new ArrayList<>();
     }
-    
-    /**
-     * Add a round result and update total winnings
-     */
+
+    //adds round result and updates total winnings
     public void addResult(RoundResult result) {
-        // TODO: Implement
-    }
+        if (result == null) {
+            return;
+        }
     
-    /**
-     * Get total winnings
-     */
+        int won = result.getRoundWinnings(); 
+        if (won < 0) { //so theres not negative winnings
+            won = 0; 
+        }
+        totalWinnings = totalWinnings + won;
+
+        pastWinnings.add(result);
+    }
+
+    //getter for total winnings
     public int getTotalWinnings() {
-        // TODO: Implement
-        return 0;
+        return totalWinnings;
     }
-    
-    /**
-     * Get list of past results
-     */
+
+    //getter for past winnings
     public List<RoundResult> getPastWinnings() {
-        // TODO: Implement
-        return null;
+        return new ArrayList<>(pastWinnings);
     }
-    
-    /**
-     * Clear all winnings and history
-     */
+
+    //clears winnings and history
     public void clear() {
-        // TODO: Implement
+        totalWinnings = 0;
+        pastWinnings.clear();
     }
 }
