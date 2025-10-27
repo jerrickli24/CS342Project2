@@ -2,6 +2,8 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+//Jerrick Li, jli326, UIN: 653147894
+
 //manages the main game logic and drawings
 public class GamePlay {
     private Random rand;
